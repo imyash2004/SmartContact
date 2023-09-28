@@ -34,10 +34,15 @@ public class HomeController {
         m.addAttribute("about","About -Smart Contact Manager");
         return "about";
     }
-
+    @GetMapping("/failed")
+    public String failed(Model m){
+        m.addAttribute("failed","Failed -Smart Contact Manager");
+        return "failed";
+    }
     @GetMapping("/signin")
-    public String login()
+    public String login(Model m)
     {
+        m.addAttribute("title","login");
 
         return "login";
     }
@@ -66,7 +71,7 @@ public class HomeController {
                 System.out.println("ERROR"+result1.toString());
                 return "signup";
             }
-            user.setRole("USER");
+            user.setRole("ROLE_USER");
             user.setEnabled(true);
             user.setImageUrl("default.png");
             user.setPassword(passwordEncoder.encode(user.getPassword()));

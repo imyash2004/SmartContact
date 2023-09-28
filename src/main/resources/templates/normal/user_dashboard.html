@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,5 +11,6 @@
   <h1>Welcome you are normal user</h1>
 <h1>thjis is ypur privaye dashboard
 </h1>
+<h1>username<span th:text="${user.name}"></span></h1>
 </body>
 </html>

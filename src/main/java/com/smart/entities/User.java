@@ -121,7 +121,6 @@ public class User {
         this.contacts = contacts;
     }
 
-
     @Override
     public String toString() {
         return "User{" +
@@ -133,6 +132,7 @@ public class User {
                 ", role='" + role + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", email='" + email + '\'' +
+                ", contacts=" + contacts +
                 '}';
     }
 }
