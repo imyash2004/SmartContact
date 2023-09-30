@@ -5,27 +5,121 @@
   <title>this is home page</title>
 </head>
 <body>
-<section class="container">
-<div class="  card " >
-<div class=" col-md-12 ">
+<section >
+<div class=" card mr-3 ms-3 me-3" >
 
-    <div class =" container card-body">
+
+    <div class =" card-body">
         <h1 class="text-center">Add Contact</h1>
         <div class="container-fluid mt-1">
             <div class="row">
-                <div class="col-md-10 offset-md-1">
+                <div class="col-md-8 offset-md-2">
+
+
+
+
+
                     <form action="#" th:object="${contact}" enctype="multipart/form-data" method="post" th:action="@{/user/process-contact}" class="mt-2">
-                        <div>
+                        <div class="col-auto">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fa fa-plus"></i>
+                                    <div class="input-group-text mr-5">
+                                        <div ><i class="fa fa-plus"></i></div>
                                     </div>
 
                                 </div>
 
                                 <input class="form-control" type="text" id="firstName" name="name" placeholder="Enter your first name">
                             </div>
+                        </div>
+
+
+
+                        <div class="col-auto">
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text mr-5">
+                                        <div><i class="fas fa-user-alt"></i></div>
+
+                                    </div>
+
+                                </div>
+
+                                <input class="form-control" type="text" id="secondName" name="secondName" placeholder="Enter  nickname">
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-auto">
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text mr-5">
+                                        <div><i class="fa-solid fa-briefcase"></i></div>
+
+                                    </div>
+
+                                </div>
+
+                                <input class="form-control" type="text" id="work" name="work" placeholder="Enter occupation">
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="col-auto">
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text mr-5">
+                                        <div><i class="fa-solid fa-at"></i></div>
+
+                                    </div>
+
+                                </div>
+
+                                <input class="form-control" type="email" id="email" name="email" placeholder="Enter email ">
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-auto">
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text mr-5">
+                                        <div><i class="fa-solid fa-square-phone"></i></div>
+
+                                    </div>
+
+                                </div>
+
+                                <input class="form-control" type="text" id="phone" name="phone" placeholder="Enter contact number ">
+                            </div>
+                        </div>
+
+
+
+<!--Contact Description-->
+
+
+
+                        <div class="form-group mt-3">
+                            <textarea class="form-control" name="description" placeholder="kuch bhi likh da bhai jo maan mai aa rha ho" id="description" rows="10" ></textarea>
+                        </div>
+
+
+                        <div class="custom-file mt-3">
+                            <input type="file" name="image">
+                        </div>
+
+
+
+
+                        <div class="container text-center">
+                            <button class="btn btn-outline-primary ">Save Contact</button>
                         </div>
 
                     </form>
@@ -35,7 +129,7 @@
     </div>
 
 </div>
-</div>
+
  </section>
 
 </body>

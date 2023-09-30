@@ -6,9 +6,8 @@ import com.smart.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 
@@ -46,4 +45,19 @@ public class UserController {
 
         return "normal/add_contact_form";
     }
+
+
+    @PostMapping("/process-contact")
+    public String processContact(@ModelAttribute Contact contact, @RequestParam("image") MultipartFile image) {
+        // Handle the uploaded file (image) here
+        // You can access the file content using image.getBytes() or process it as needed
+
+        // Process other fields in the Contact object
+
+        // Rest of your method logic
+
+        System.out.println(contact);
+        return "normal/add_contact_form";
+    }
+
 }
