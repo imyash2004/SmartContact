@@ -20,6 +20,15 @@ public class Contact {
     private String image;
     @Column(length = 500)
     private String description;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @ManyToOne
     private User user;
 

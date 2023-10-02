@@ -3,13 +3,22 @@ package com.smart.controller;
 import com.smart.dao.UserRepository;
 import com.smart.entities.Contact;
 import com.smart.entities.User;
+import com.smart.helper.Message;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.sql.SQLOutput;
 
 @Controller
 @RequestMapping("/user")
@@ -48,16 +57,46 @@ public class UserController {
 
 
     @PostMapping("/process-contact")
-    public String processContact(@ModelAttribute Contact contact, @RequestParam("image") MultipartFile image) {
-        // Handle the uploaded file (image) here
-        // You can access the file content using image.getBytes() or process it as needed
+    public String processContact(@ModelAttribute Contact contact, Principal p, @RequestParam("pimage") MultipartFile image, HttpSession session) {
+        try {
+            String name =p.getName();
+            User user=this.userRepository.getUserByUserName(name);
 
-        // Process other fields in the Contact object
 
-        // Rest of your method logic
 
-        System.out.println(contact);
+            if(image.isEmpty()){
+
+                System.out.println("file is empty");
+            }
+            else{
+                contact.setImage(image.getOriginalFilename() );
+                File file=new ClassPathResource("static/images").getFile();
+                Path path =Paths.get(file.getAbsolutePath()+File.separator+image.getOriginalFilename());
+
+                Files.copy(image.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("image is uploaded");
+            }
+            user.getContacts().add(contact);
+            contact.setUser(user);
+            this.userRepository.save(user);
+            System.out.println("data:"+contact);
+            session.setAttribute("message",new Message("your contact is added successfully","success"));
+
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            System.out.println("error"+e.getMessage());
+
+            session.setAttribute("message",new Message("something went wrong try again","alert"));
+
+        }
         return "normal/add_contact_form";
+    }
+
+    @GetMapping("/show-contacts")
+    public String showContacts(Model m){
+        return "show_contacts";
     }
 
 }
