@@ -134,3 +134,38 @@
 
 </body>
 </html>
+
+
+
+
+<!--<tbody>-->
+
+<!--<tr th:each="c:${Contact}">-->
+<!--    <th scope="row" th:text="${'SCM2021'+c.cId}">1</th>-->
+<!--    <td >-->
+<!--        <img class="my-profile-picture" th:src="@{'/img/'+${c.image}}">-->
+<!--        <span th:text="${c.name}" ></span>-->
+<!--    </td>-->
+<!--    <td>-->
+<!--        <a th:href="@{'/user/contact/'+${c.cId}}">-->
+<!--            <span  th:text="${c.email}"></span>-->
+<!--        </a>-->
+<!--    </td>-->
+<!--    <td th:text="${c.phone}"></td>-->
+<!--    <td>-->
+<!--        <a href="#" th:onclick="|deleteContact(${c.cId})|" class="btn btn-danger">-->
+<!--            Delete-->
+<!--        </a>-->
+<!--        <form method="post" class="mt-3" th:action="@{'/user/update-contact/'+${c.cId}}">-->
+
+<!--            <button type="submit" class="btn btn-primary">-->
+<!--                Update-->
+<!--            </button>-->
+
+<!--        </form>-->
+<!--    </td>-->
+
+
+<!--</tr>-->
+
+<!--</tbody>-->
