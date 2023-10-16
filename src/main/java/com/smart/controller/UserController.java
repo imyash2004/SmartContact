@@ -107,9 +107,9 @@ public class UserController {
     public String showContacts( @PathVariable("page") Integer page,Model m,Principal p){
         String name=p.getName();
         User user=this.userRepository.getUserByUserName(name);
-        Pageable pageable =PageRequest.of(page,5);
+        Pageable pageable =PageRequest.of(page,1);
         Page<Contact> contacts=this.contactRepository.findContactsByUser(user.getId(),pageable);
-        m.addAttribute("Contacts",contacts);
+        m.addAttribute("contacts",contacts);
         m.addAttribute("currentPage",page);
         m.addAttribute("totalPages",contacts.getTotalPages());
         return "normal/show-contacts";
