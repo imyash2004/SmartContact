@@ -24,6 +24,7 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.sql.SQLOutput;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -75,6 +76,7 @@ public class UserController {
             if(image.isEmpty()){
 
                 System.out.println("file is empty");
+                contact.setImage("contact.png");
             }
             else{
                 contact.setImage(image.getOriginalFilename() );
@@ -107,12 +109,54 @@ public class UserController {
     public String showContacts( @PathVariable("page") Integer page,Model m,Principal p){
         String name=p.getName();
         User user=this.userRepository.getUserByUserName(name);
-        Pageable pageable =PageRequest.of(page,1);
+        Pageable pageable =PageRequest.of(page,5);
         Page<Contact> contacts=this.contactRepository.findContactsByUser(user.getId(),pageable);
         m.addAttribute("contacts",contacts);
         m.addAttribute("currentPage",page);
         m.addAttribute("totalPages",contacts.getTotalPages());
         return "normal/show-contacts";
+    }
+
+
+    @RequestMapping("/contact/{cId}")
+    public String showContactDetail(@PathVariable("cId") Integer cID,Model m ,Principal p){
+
+        Optional<Contact> contactOptional=this.contactRepository.findById(cID);
+        String username=p.getName();
+        User user=this.userRepository.getUserByUserName(username);
+        Contact contact=contactOptional.get();
+        if(user.getId()==contact.getUser().getId()){
+            m.addAttribute("contact",contact);
+
+        }
+        return "normal/contact_detail";
+    }
+
+    @GetMapping("/delete/{cId}")
+    public String deleteContact(@PathVariable("cId") Integer cID,Model m,Principal p,HttpSession session){
+
+
+        System.out.println("hello");
+
+
+       // String name=p.getName();
+      //  User user=this.userRepository.getUserByUserName(name);
+        // Contact contact = this.contactRepository.findById(cID).get();
+        // Contact contact=contactOptional.get();
+        // User user1=contact.getUser();
+        // contact.setUser(null);
+//         if(user.getId()==user1.getId()){
+
+
+        Optional<Contact> findById = this.contactRepository.findById(cID);
+        Contact contact = findById.get();
+        contact.setUser(null);
+        System.out.println(contact.getUser());
+             this.contactRepository.delete(contact);
+        session.setAttribute("message",new Message("Contact Deleted Successfully","success"));
+
+
+        return "redirect:/user/show-contacts/0";
     }
 
 }

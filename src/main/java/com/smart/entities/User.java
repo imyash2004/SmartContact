@@ -29,7 +29,7 @@ public class User {
     @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",message="Invalid email")
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private List<Contact> contacts=new ArrayList<>();
 
 

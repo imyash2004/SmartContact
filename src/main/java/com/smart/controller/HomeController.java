@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.model.IModel;
 
 @Controller
-public class HomeController {
-
+public class HomeController
+    {
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private UserRepository userRepository;
     @GetMapping("/")
@@ -27,8 +26,6 @@ public class HomeController {
         m.addAttribute("title","Home -Smart Contact Manager");
         return "home";
     }
-
-
     @GetMapping("/about")
     public String about(Model m){
         m.addAttribute("about","About -Smart Contact Manager");
@@ -43,25 +40,16 @@ public class HomeController {
     public String login(Model m)
     {
         m.addAttribute("title","login");
-
         return "login";
     }
-
-
     @GetMapping("/signup")
     public String signup(Model m){
         m.addAttribute("title","Register -Smart Contact Manager");
         m.addAttribute("user",new User());
         return "signup";
-
-
-
-
     }
-
     @PostMapping("/do_register")
     public String registerUser( @Valid @ModelAttribute("user") User user ,BindingResult result1, @RequestParam(value = "agreement",defaultValue = "false") boolean agreement, Model m,HttpSession session){
-
         try {
             if(!agreement){
                 System.out.println("you have not agreed the terms and condition");
@@ -82,7 +70,6 @@ public class HomeController {
             r = this.userRepository.save(user);
             m.addAttribute("user",new User());
             session.setAttribute("message",new Message("SuccessFully Registered","alert-success"));
-
         }
         catch (Exception e){
             e.printStackTrace();
