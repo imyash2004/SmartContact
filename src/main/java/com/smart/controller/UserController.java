@@ -159,4 +159,48 @@ public class UserController {
         return "redirect:/user/show-contacts/0";
     }
 
+
+
+
+
+    @RequestMapping("/update-contact/{cid}")
+    public String updateForm(@PathVariable("cid") Integer cid,Model m){
+        System.out.println("inside update form");
+        m.addAttribute("title","update Form");
+        Optional<Contact> findById=this.contactRepository.findById(cid);
+        Contact contact=findById.get();
+        m.addAttribute("contact",contact);
+
+        return "normal/updateForm";
+    }
+
+
+    @PostMapping("/process-update")
+    public  String updateHandler(@ModelAttribute Contact contact ,Principal p,@RequestParam("pimage") MultipartFile img,Model m,HttpSession session){
+        Contact old=this.contactRepository.findById(contact.getcId()).get();
+        try {
+            if(!img.isEmpty()){
+                contact.setImage(img.getOriginalFilename());
+                File file=new ClassPathResource("static/images").getFile();
+                Path path=Paths.get(file.getAbsolutePath()+File.separator+img.getOriginalFilename());
+                Files.copy(img.getInputStream(),path,StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("File uploaded successfully");
+            }
+            else{
+                contact.setImage(old.getImage());
+
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        String name=p.getName();
+        User u=this.userRepository.getUserByUserName(name);
+        contact.setUser(u);
+        this.contactRepository.save(contact);
+        session.setAttribute("message",new Message("Updated Successfully","success"));
+
+        return "redirect:/user/contact/"+contact.getcId();
+    }
+
 }
