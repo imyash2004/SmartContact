@@ -1,6 +1,7 @@
 package com.smart.dao;
 
 import com.smart.entities.Contact;
+import com.smart.entities.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,10 @@ public interface ContactRepository extends JpaRepository<Contact,Integer> {
     public Page<Contact> findContactsByUser(@Param("userId") int userId, Pageable pageable);
 
 
+//search
+public List<Contact>findByNameContainingAndUser(String keyword, User user);
+
+public Integer countContactByUser(User user);
 
    }
 

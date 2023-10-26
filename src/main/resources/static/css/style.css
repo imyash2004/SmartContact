@@ -192,4 +192,19 @@ input:focus{
 
 
 
+/*serach css*/
+.search-container{
+    position: relative;
+}
+.search-result{
+    position: absolute;
+    background: antiquewhite;
+    width: 100%;
+    padding: 10px;
+    border:1px solid rgb(128, 128, 128);
+    display: none;
+
+}
+
+
 
